@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Header title="Task Tracker"/>
-    <Tasks :tasks="tasks"/>
+    <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/>
   </div>
 </template>
 
@@ -22,8 +22,18 @@ export default {
       task: []
     }
   },
+  methods: {
+    deleteTask(id) { 
+      if (confirm('Are you sure?')) { 
+      this.tasks = this.tasks.filter((task) => task.id !== id)
+      }
+    },
+    toggleReminder(id) {
+      console.log(id)
+    }
+  },
   created() { 
-    this.task = [
+    this.tasks = [
       {
         id:1,
         text: "Doctors",
@@ -40,7 +50,7 @@ export default {
         id:3,
         text: "Doctors",
         day: "March 1",
-        reminder: true,
+        reminder: false,
       },
     ]
   }
